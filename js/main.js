@@ -305,6 +305,35 @@
 		stickyFunction();
 		owlCrouselFeatureSlide();
 	});
+	document.addEventListener("DOMContentLoaded", function() {
+        // Ambil semua tombol filter dan item project
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectItems = document.querySelectorAll('.project-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault(); // Mencegah scroll ke atas saat link '#' diklik
+
+                // 1. Hapus class 'active' dari semua tombol
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // 2. Tambahkan class 'active' pada tombol yang sedang diklik
+                this.classList.add('active');
+
+                // 3. Ambil nilai kategori dari data-filter
+                const filterValue = this.getAttribute('data-filter');
+
+                // 4. Tampilkan atau sembunyikan project sesuai kategori
+                projectItems.forEach(item => {
+                    if (filterValue === 'all' || item.classList.contains(filterValue)) {
+                        item.style.display = 'block'; // Tampilkan project
+                    } else {
+                        item.style.display = 'none';  // Sembunyikan project
+                    }
+                });
+            });
+        });
+    });
 
 
 }());
